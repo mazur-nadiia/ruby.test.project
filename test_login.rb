@@ -11,7 +11,7 @@ class TestLogin <Test::Unit::TestCase
   end
 
   def test_with_registration
-    results = register_user_random
+    results = register_user
     user_logout
     user_login results[0], results[1]
     sleep 5

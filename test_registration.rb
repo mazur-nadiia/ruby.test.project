@@ -11,7 +11,7 @@ class TestRegistration <Test::Unit::TestCase
   end
 
   def test_positive
-    register_user_random
+    register_user
     expected_text = "Your account has been activated. You can now log in."
     actual_text = @driver.find_element(:id, 'flash_notice').text
     assert_equal(expected_text, actual_text)

@@ -10,12 +10,10 @@ class ChangePassword <Test::Unit::TestCase
   end
 
   def test_change_password
-    results = register_user_random
+    results = register_user
     new_password = rand(9999999)
     change_password(results[1], new_password)
-    expected_text = "Password was successfully updated."
-    actual_text = @driver.find_element(:id, 'flash_notice').text
-    assert_equal(expected_text, actual_text)
+    verify_flash_notice_text("Password was successfully updated.")
   end
 
   def teardown
