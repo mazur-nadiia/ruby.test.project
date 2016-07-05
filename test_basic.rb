@@ -22,28 +22,26 @@ class ChangePassword <Test::Unit::TestCase
   def test_create_issue_bug
     user_login('nma', '1234567')
     create_project
-    issue_name = create_issue("Bug", "test issue"+ rand(999).to_s, "test descirption" + rand(999).to_s)
-    verify_flash_notice_partial_text(['Issue', 'created.'])
+    issue_name = create_issue("Bug")
+    verify_flash_notice_contains(['Issue', 'created.'])
     verify_issue_created(issue_name)
   end
 
   def test_create_issue_feature
     user_login('nma', '1234567')
     create_project
-    issue_name = create_issue("Feature", "test issue"+ rand(999).to_s, "test descirption" + rand(999).to_s)
-    verify_flash_notice_partial_text(['Issue', 'created.'])
+    issue_name = create_issue("Feature")
+    verify_flash_notice_contains(['Issue', 'created.'])
     verify_issue_created(issue_name)
   end
 
   def test_create_issue_support
     user_login('nma', '1234567')
     create_project
-    issue_name = create_issue("Support", "test issue"+ rand(999).to_s, "test descirption" + rand(999).to_s)
-    verify_flash_notice_partial_text(['Issue', 'created.'])
+    issue_name = create_issue("Support")
+    verify_flash_notice_contains(['Issue', 'created.'])
     verify_issue_created(issue_name)
   end
-
-
 
   def test_create_project
     register_result = register_user

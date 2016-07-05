@@ -1,8 +1,13 @@
 module TestModule
 
-  def register_user(login = 'user247_' + rand(99999).to_s,
-                    password = rand(999999999).to_s, firstname = 'user247_' + rand(99999).to_s,
-                    lastname = 'user247_' + rand(99999).to_s, mail = 'user247_' + rand(99999).to_s + '@247qe.com')
+  def register_user
+
+    login = 'user247_' + rand(99999).to_s
+    password = rand(999999999).to_s
+    firstname = 'user247_' + rand(99999).to_s
+    lastname = 'user247_' + rand(99999).to_s
+    mail = 'user247_' + rand(99999).to_s + '@247qe.com'
+
     @driver.navigate.to 'http://demo.redmine.org'
     @driver.find_element(:class, 'register').click
 
@@ -56,7 +61,7 @@ module TestModule
 
   def create_version(version_name = 'test version'+ rand(999).to_s, version_description = 'test description')
     @driver.find_element(:id, 'tab-versions').click
-    @driver.find_element(:xpath => "//a[text()='New version']").click
+    @driver.find_element(:xpath => "//div[@id = 'tab-content-versions']/p/a").click
     @driver.find_element(:id, 'version_name').send_keys version_name
     @driver.find_element(:id, 'version_description').send_keys version_description
     submit
@@ -68,14 +73,17 @@ module TestModule
     assert_equal(expected_text, actual_text)
   end
 
-  def verify_flash_notice_partial_text(expected_text)
+  def verify_flash_notice_contains(substring_list)
     actual_text = @driver.find_element(:id, 'flash_notice').text
-      expected_text.each do |i|
+      substring_list.each do |i|
       assert_contains i, actual_text
     end
   end
 
-  def create_issue(issue_tracker_id, subject, description)
+  def create_issue(issue_tracker_id)
+    subject =  "test issue"+ rand(999).to_s
+    description = "test descirption" + rand(999).to_s
+
     @driver.find_element(:class, 'new-issue').click
     @wait.until {@driver.find_element(:id, 'issue_tracker_id')}
     drop_down = @driver.find_element(:id, 'issue_tracker_id')
@@ -97,9 +105,10 @@ module TestModule
 
   def verify_issue_created(issue_subject)
     @driver.find_element(:class , 'projects').click
+    @wait.until {@driver.find_element(:xpath => "//a[text()='View all issues']")}
     @driver.find_element(:xpath => "//a[text()='View all issues']").click
-    #issue = @driver.find_element(:xpath => '//.issues[contains(text(), #{issue_subject})]')
-    #assert_not_nil(issue, "Issue was not created")
+    issue = @driver.find_element(:xpath => "//div[@class='autoscroll']/table/tbody//a[contains(., '#{issue_subject}')]")
+    assert_not_nil(issue, "Issue was not created")
 
   end
 
