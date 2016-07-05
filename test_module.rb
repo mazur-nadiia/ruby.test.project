@@ -16,15 +16,15 @@ module TestModule
 
     submit
 
-    return login, password
+    [login, password]
   end
 
   def user_login (username, password)
     @driver.find_element(:class, 'login').click
-    sleep 2
+    @wait.until {@driver.find_element(:id, 'username')}
     @driver.find_element(:id, 'username').send_keys username
     @driver.find_element(:id, 'password').send_keys password
-    @driver.find_element(:xpath => '//input[@type="submit" and @name="login"]').click
+    @driver.find_element(:xpath => '//input[@type="submit"]').click
   end
 
   def user_logout
@@ -33,7 +33,9 @@ module TestModule
 
   def change_password(old_password, new_password)
     @driver.find_element(:class, 'my-account').click
+    @wait.until {@driver.find_element(:class, 'icon-passwd')}
     @driver.find_element(:class, 'icon-passwd').click
+    @wait.until {@driver.find_element(:id, 'password')}
     @driver.find_element(:id, 'password').send_keys old_password
     @driver.find_element(:id, 'new_password').send_keys new_password
     @driver.find_element(:id, 'new_password_confirmation').send_keys new_password
@@ -43,14 +45,13 @@ module TestModule
   def create_project(project_name = 'test_project' + rand(9999).to_s,
                      project_description ='test_description' + rand(9999).to_s)
     @driver.find_element(:class, 'projects').click
-    sleep 1
+    @wait.until {@driver.find_element(:class, 'icon-add')}
     @driver.find_element(:class, 'icon-add').click
-    sleep 1
+    @wait.until {@driver.find_element(:id, 'project_name')}
     @driver.find_element(:id, 'project_name').send_keys project_name
     @driver.find_element(:id, 'project_description').send_keys project_description
-    sleep 1
     submit
-    return project_name
+    project_name
   end
 
   def create_version(version_name = 'test version'+ rand(999).to_s, version_description = 'test description')
@@ -76,29 +77,34 @@ module TestModule
 
   def create_issue(issue_tracker_id, subject, description)
     @driver.find_element(:class, 'new-issue').click
-    select = @driver.find_element(:id, 'issue_tracker_id')
-    select.click
-    select.find_elements( :tag_name => "option" ).find do |option|
-      option.text == issue_tracker_id
-    end.click
-    sleep 1
+    @wait.until {@driver.find_element(:id, 'issue_tracker_id')}
+    drop_down = @driver.find_element(:id, 'issue_tracker_id')
+    option = Selenium::WebDriver::Support::Select.new(drop_down)
+    option.select_by(:text, issue_tracker_id)
+
+    @wait.until {@driver.find_element(:id, 'issue_subject')}
     @driver.find_element(:id, 'issue_subject').send_keys subject
     @driver.find_element(:id, 'issue_description').send_keys description
 
     submit
+    subject
   end
 
   def submit
+    @wait.until {@driver.find_element(:xpath => '//input[@type="submit" and @name="commit"]')}
     @driver.find_element(:xpath => '//input[@type="submit" and @name="commit"]').click
   end
 
-  def verify_issue_created(issue_name)
+  def verify_issue_created(issue_subject)
     @driver.find_element(:class , 'projects').click
     @driver.find_element(:xpath => "//a[text()='View all issues']").click
+    #issue = @driver.find_element(:xpath => '//.issues[contains(text(), #{issue_subject})]')
+    #assert_not_nil(issue, "Issue was not created")
 
-    List<WebElement> list = @driver.findElement(:xpath => "//.issues[contains(text(),'" + issue_name + "')]");
-    Assert.assertTrue("Text not found!", list.size() > 0);
+  end
 
+  def assert_contains(expected_substring, string, *args)
+    assert string.include?(expected_substring), *args
   end
 
 end
