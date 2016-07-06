@@ -45,8 +45,8 @@ class ChangePassword <Test::Unit::TestCase
 
   def test_create_project
     register_result = register_user
-    actual_text = @driver.find_element(:xpath => '//*[@id="loggedas"]/a').text
-    assert_equal(register_result[0], actual_text)
+    actual_text = @driver.find_element(:id, 'loggedas').text
+    assert_equal("Logged in as "+ register_result[0], actual_text)
     project_name = 'project_247_'+ rand(99999).to_s
     project_description = 'description for ' + project_name
     create_project(project_name, project_description)
@@ -66,9 +66,9 @@ class ChangePassword <Test::Unit::TestCase
     results = register_user
     user_logout
     user_login results[0], results[1]
-    @wait.until {@driver.find_element(:xpath => '//*[@id="loggedas"]/a')}
-    actual_text = @driver.find_element(:xpath => '//*[@id="loggedas"]/a').text
-    assert_equal(results[0], actual_text)
+    @wait.until {@driver.find_element(:id, 'loggedas')}
+    actual_text = @driver.find_element(:id, 'loggedas').text
+    assert_equal("Logged in as "+ results[0], actual_text)
   end
 
   def test_log_out

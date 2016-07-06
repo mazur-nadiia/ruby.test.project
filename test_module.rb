@@ -29,7 +29,7 @@ module TestModule
     @wait.until {@driver.find_element(:id, 'username')}
     @driver.find_element(:id, 'username').send_keys username
     @driver.find_element(:id, 'password').send_keys password
-    @driver.find_element(:xpath => '//input[@type="submit"]').click
+    @driver.find_element(:name , 'login').click
   end
 
   def user_logout
@@ -61,7 +61,7 @@ module TestModule
 
   def create_version(version_name = 'test version'+ rand(999).to_s, version_description = 'test description')
     @driver.find_element(:id, 'tab-versions').click
-    @driver.find_element(:xpath => "//div[@id = 'tab-content-versions']/p/a").click
+    @driver.find_element(:css => 'a.icon.icon-add').click
     @driver.find_element(:id, 'version_name').send_keys version_name
     @driver.find_element(:id, 'version_description').send_keys version_description
     submit
@@ -99,15 +99,20 @@ module TestModule
   end
 
   def submit
-    @wait.until {@driver.find_element(:xpath => '//input[@type="submit" and @name="commit"]')}
-    @driver.find_element(:xpath => '//input[@type="submit" and @name="commit"]').click
+    @wait.until {@driver.find_element(:name , 'commit')}
+    @driver.find_element(:name , 'commit').click
   end
 
   def verify_issue_created(issue_subject)
     @driver.find_element(:class , 'projects').click
-    @wait.until {@driver.find_element(:xpath => "//a[text()='View all issues']")}
-    @driver.find_element(:xpath => "//a[text()='View all issues']").click
+    @wait.until {@driver.find_element(:link, "View all issues")}
+    @driver.find_element(:link, "View all issues").click
     issue = @driver.find_element(:xpath => "//div[@class='autoscroll']/table/tbody//a[contains(., '#{issue_subject}')]")
+
+    #TODO: simplify check
+    #@driver.find_element(:css , 'a.issues.selected').click
+    #issues_subjects = @driver.find_elements(:class, 'subject')
+    #assert_contains(issues_subjects, issue_subject)
     assert_not_nil(issue, "Issue was not created")
 
   end
