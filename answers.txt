@@ -1,0 +1,11 @@
+1. git stash is a git command, which is used mostly to save unfinished work (without creation a separate commit) 
+and then you can switch to another branch. When you need to continue working on unfinished changes, these changes could be recovered with command: git stash apply
+
+2. git reset is a git command, which is used to reset the repository to some state.There are different states, to which it is possible to reset git repository.
+For example, to specified commit, to HEAD, with or without updating tree index.
+
+3. git cherry-pick is a command for applying the changes introduced by some existing commits. It is used when you need only some specific commits from some branch to be present in another one, for example, there is a master branch and product was released from it. Then some development + bug fixing was done.
+And customer asks for only bugs to be fixed and doesn't want a new product version. So there is a way to create a new branch in release state and cherry pick commits from master branch for only bugfixes.
+
+4. git rm command removes files from index and working tree without removing these files from working directory.
+It means you will have these files in your working directory, but all changes to these files will not be tracked.
