@@ -93,7 +93,7 @@ class MainClasses <Test::Unit::TestCase
   def array_conditions(ary)
     result = 0;
     ary.each_with_index do |elem, index|
-      if (elem > ary[0]) & (elem < ary[-1])
+      if (elem > ary[0]) && (elem < ary[-1])
         result = index;
       end
     end
@@ -106,7 +106,7 @@ class MainClasses <Test::Unit::TestCase
 
   def array_increment(ary)
     ary.each_with_index { |val, index|
-      if (index % 2 == 0) & (index !=0) & (index != ary.size() -1)
+      if (index % 2 == 0) && (index !=0) && (index != ary.size() -1)
         ary[index]=ary[index]+ary[0]
       end;
     }
