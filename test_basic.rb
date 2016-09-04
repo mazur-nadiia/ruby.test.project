@@ -2,7 +2,7 @@ require 'test-unit'
 require 'selenium-webdriver'
 require_relative 'test_module'
 
-class ChangePassword <Test::Unit::TestCase
+class TestBasic <Test::Unit::TestCase
   include TestModule
 
   def setup
@@ -86,6 +86,27 @@ class ChangePassword <Test::Unit::TestCase
     assert_equal(expected_text, actual_text)
   end
 
+  def test_random_action
+    register_user
+    project_name = 'test_project' + rand(999999).to_s
+    project_description = 'test_description' + rand(9999).to_s
+    create_project(project_name, project_description)
+    create_bug_issue = rand(2)
+    if (create_bug_issue != 0)
+      create_issue("Bug")
+    end
+    open_project_tab(project_name)
+    element = is_element_present_by_class("tracker")
+    if (element != nil)
+      add_element_to_watchers(element)
+    else
+      issue = create_issue("Bug")
+      add_element_to_watchers_via_button
+      verify_issue_created(issue)
+      verify_user_is_a_watcher(issue)
+    end
+  end
+
   def teardown
     begin
       user_logout
@@ -94,5 +115,4 @@ class ChangePassword <Test::Unit::TestCase
     end
     @driver.quit
   end
-
-end
+ end
