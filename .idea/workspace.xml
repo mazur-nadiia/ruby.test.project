@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2abd42db-ce11-416e-b96a-8d228190234a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/test_project.iml" afterPath="$PROJECT_DIR$/.idea/test_project.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_basic.rb" afterPath="$PROJECT_DIR$/test_basic.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_file.rb" afterPath="$PROJECT_DIR$/test_file.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_main_data_classes.rb" afterPath="$PROJECT_DIR$/test_main_data_classes.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_module.rb" afterPath="$PROJECT_DIR$/test_module.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_operations_and_constructions.rb" afterPath="$PROJECT_DIR$/test_operations_and_constructions.rb" />
     </list>
     <ignored path="test_project.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -480,7 +474,7 @@
       <workItem from="1468147432515" duration="737000" />
       <workItem from="1469563523499" duration="7660000" />
       <workItem from="1472575887101" duration="14652000" />
-      <workItem from="1479797159789" duration="3724000" />
+      <workItem from="1479797159789" duration="3917000" />
     </task>
     <task id="LOCAL-00001" summary="Other 4 tests added">
       <created>1469599210880</created>
@@ -496,7 +490,14 @@
       <option name="project" value="LOCAL" />
       <updated>1473019666221</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Operations and constructions homework - reworked">
+      <created>1479800919689</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1479800919689</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -532,7 +533,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="39146000" />
+    <option name="totallyTimeSpent" value="39339000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -574,7 +575,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Other 4 tests added" />
     <MESSAGE value="Operations and constructions homework" />
-    <option name="LAST_COMMIT_MESSAGE" value="Operations and constructions homework" />
+    <MESSAGE value="Operations and constructions homework - reworked" />
+    <option name="LAST_COMMIT_MESSAGE" value="Operations and constructions homework - reworked" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
