@@ -1,5 +1,6 @@
 require 'test-unit'
 require 'selenium-webdriver'
+require_relative 'test_module'
 
 class TestFile <Test::Unit::TestCase
   include TestModule

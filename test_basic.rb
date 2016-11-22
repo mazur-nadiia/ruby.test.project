@@ -88,16 +88,14 @@ class TestBasic <Test::Unit::TestCase
 
   def test_random_action
     register_user
-    project_name = 'test_project' + rand(999999).to_s
-    project_description = 'test_description' + rand(9999).to_s
-    create_project(project_name, project_description)
+    project_name = create_project()
     create_bug_issue = rand(2)
     if (create_bug_issue != 0)
       create_issue("Bug")
     end
     open_project_tab(project_name)
     element = is_element_present_by_class("tracker")
-    if (element != nil)
+    if element
       add_element_to_watchers(element)
     else
       issue = create_issue("Bug")

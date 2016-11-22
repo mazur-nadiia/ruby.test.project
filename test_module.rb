@@ -104,7 +104,7 @@ module TestModule
     @driver.find_element(:class , 'projects').click
     @wait.until {@driver.find_element(:link, "View all issues")}
     @driver.find_element(:link, "View all issues").click
-    issue = @driver.find_element(:xpath => "//div[@class='autoscroll']/table/tbody//a[contains(., '#{issue_subject}')]")
+    issue = @driver.find_element(:link_text, issue_subject)
     assert_not_nil(issue, "Issue was not created")
     issue
   end
@@ -127,23 +127,16 @@ module TestModule
   end
 
   def is_element_present_by_class(class_name)
-    begin
-      element = @driver.find_element(:class, class_name)
-    rescue Selenium::WebDriver::Error::NoSuchElementError
-      return nil
-    else
-      return element
-    end
+    @driver.find_element(:class, class_name)
+  rescue Selenium::WebDriver::Error::NoSuchElementError
+    nil
   end
 
+
   def is_element_present_by_link_text(link_text)
-    begin
-      element = @driver.find_element(:link_text, link_text)
+      @driver.find_element(:link_text, link_text)
     rescue Selenium::WebDriver::Error::NoSuchElementError
-      return nil
-    else
-      return element
-    end
+      nil
   end
 
   def add_element_to_watchers(element)

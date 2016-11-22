@@ -83,9 +83,9 @@ class MainClasses <Test::Unit::TestCase
         puts val;
       else
         even << val;
-      end;
+      end
     }
-    puts even;
+    puts even
   end
   def test_even_odd
     puts_even_odd(["0", "1","2","3","4", "5", "6", "7", "8"])
