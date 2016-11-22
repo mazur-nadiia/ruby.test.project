@@ -1,7 +1,8 @@
 require 'test-unit'
 require 'selenium-webdriver'
+require_relative 'test_module'
 
-class ChangePassword <Test::Unit::TestCase
+class TestFile <Test::Unit::TestCase
   include TestModule
 
   def setup

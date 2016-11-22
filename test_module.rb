@@ -1,7 +1,6 @@
 module TestModule
 
   def register_user
-
     login = 'user247_' + rand(99999).to_s
     password = rand(999999999).to_s
     firstname = 'user247_' + rand(99999).to_s
@@ -18,9 +17,7 @@ module TestModule
     @driver.find_element(:id, 'user_firstname').send_keys firstname
     @driver.find_element(:id, 'user_lastname').send_keys lastname
     @driver.find_element(:id, 'user_mail').send_keys (mail)
-
     submit
-
     [login, password]
   end
 
@@ -107,18 +104,51 @@ module TestModule
     @driver.find_element(:class , 'projects').click
     @wait.until {@driver.find_element(:link, "View all issues")}
     @driver.find_element(:link, "View all issues").click
-    issue = @driver.find_element(:xpath => "//div[@class='autoscroll']/table/tbody//a[contains(., '#{issue_subject}')]")
-
-    #TODO: simplify check
-    #@driver.find_element(:css , 'a.issues.selected').click
-    #issues_subjects = @driver.find_elements(:class, 'subject')
-    #assert_contains(issues_subjects, issue_subject)
+    issue = @driver.find_element(:link_text, issue_subject)
     assert_not_nil(issue, "Issue was not created")
+    issue
+  end
 
+  def verify_user_is_a_watcher(issue_subject)
+    verify_issue_created(issue_subject).click()
+    watchElement = is_element_present_by_link_text("Unwatch")
+    assert_not_nil(watchElement)
   end
 
   def assert_contains(expected_substring, string, *args)
     assert string.include?(expected_substring), *args
+  end
+
+  def open_project_tab(project_name)
+    @driver.find_element(:class, 'projects').click
+    @driver.find_element(:link_text, project_name).click
+    @wait.until { @driver.find_element(:class, 'issues')}
+    @driver.find_element(:class, 'issues').click
+  end
+
+  def is_element_present_by_class(class_name)
+    @driver.find_element(:class, class_name)
+  rescue Selenium::WebDriver::Error::NoSuchElementError
+    nil
+  end
+
+
+  def is_element_present_by_link_text(link_text)
+      @driver.find_element(:link_text, link_text)
+    rescue Selenium::WebDriver::Error::NoSuchElementError
+      nil
+  end
+
+  def add_element_to_watchers(element)
+    @driver.action.context_click(element).send_keys(
+        :arrow_down).send_keys(
+        :arrow_down).send_keys(
+        :arrow_down).send_keys(
+        :enter).perform
+  end
+
+  def add_element_to_watchers_via_button()
+    @driver.find_element(:link_text, "Watch").click
   end
 
 end
